@@ -70,7 +70,7 @@ jobs:
       run: |
         ./bin/update-perl \
             --data ~/obs-mirror \
-            --project "${{ inputs.target_repo }}" \
+            --project "home:tinita:testautoupdate" \
             --max 2
     - run: |
         grep todo ~/obs-mirror/status/perl.tsv
