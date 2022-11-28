@@ -34,6 +34,7 @@ jobs:
     - run: >
         zypper -n install perl-App-cpanminus make gcc osc expat libexpat-devel
         procmail wget obs-service-format_spec_file obs-service-download_files
+        git
 
         cpanm -n Archive::Zip Pod::POM Parse::CPAN::Packages
         Text::Autoformat YAML::XS LWP::UserAgent Perl::PrereqScanner
