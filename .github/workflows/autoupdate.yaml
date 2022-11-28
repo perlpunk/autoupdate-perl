@@ -39,9 +39,7 @@ jobs:
         Text::Autoformat YAML::XS LWP::UserAgent Perl::PrereqScanner
         Algorithm::Diff
         XML::Simple Moo Module::Build::Tiny File::ShareDir::Install
-    - name: test
-      run: perl -c cpanspec
-      run: |
+    - run: |
         git clone https://github.com/openSUSE/cpanspec ../cpanspec
         ln -s ../cpanspec/cpanspec cpanspec
     - run: |
