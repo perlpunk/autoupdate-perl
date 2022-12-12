@@ -6,19 +6,18 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: 'Task'
+        description: Task
         required: true
-        default: 'status'
+        default: status
         type: choice
-        options:
-        - status
+        options: [ status ]
       target_repo:
         description: 'OBS Repo where the updated modules should be put'
         required: false
         type: string
         default: devel:languages:perl:autoupdate
       module:
-        description: 'Module to update'
+        description: 'Optional: Module to update (example: perl-YAML-PP)'
         required: false
         type: string
 
