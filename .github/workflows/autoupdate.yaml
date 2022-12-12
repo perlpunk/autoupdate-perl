@@ -41,7 +41,6 @@ jobs:
         XML::Simple Moo Module::Build::Tiny File::ShareDir::Install
     - run: |
         git clone https://github.com/openSUSE/cpanspec ../cpanspec
-        ln -s ../cpanspec/cpanspec cpanspec
     - run: |
         mkdir -p ~/.config/osc
         echo "[general]
@@ -61,12 +60,14 @@ jobs:
         grep todo ~/obs-mirror/status/perl.tsv
     - if: ${{ inputs.module }}
       run: |
+        PATH=$PWD/../cpanspec:$PATH
         ./bin/update-perl \
             --data ~/obs-mirror \
             --project "${{ inputs.target_repo }}" \
             --max 2 --package "${{ inputs.module }}"
     - if: ${{ ! inputs.module }}
       run: |
+        PATH=$PWD/../cpanspec:$PATH
         ./bin/update-perl \
             --data ~/obs-mirror \
             --project "home:tinita:testautoupdate" \
