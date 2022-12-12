@@ -24,7 +24,7 @@ usage(), exit if $help;
 usage(), exit 1 if (not $project or not $data);
 #$project ||= "home:tinita:cpan-mirror:CPAN-";
 #$project ||= "devel:languages:perl:CPAN-";
-$cpanspec ||= "$Bin/../cpanspec";
+$cpanspec ||= "cpanspec";
 
 unless (@ARGV) {
     usage();
