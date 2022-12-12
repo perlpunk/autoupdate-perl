@@ -18,7 +18,7 @@ GetOptions(
     'package=s@' => \my @packages,
     'redo' => \my $redo,
     'help|h' => \my $help,
-    cpanspec => \my $cpanspec,
+    'cpanspec=s' => \my $cpanspec,
 );
 usage(), exit if $help;
 usage(), exit 1 if (not $project or not $data);
