@@ -18,11 +18,13 @@ GetOptions(
     'package=s@' => \my @packages,
     'redo' => \my $redo,
     'help|h' => \my $help,
+    cpanspec => \my $cpanspec,
 );
 usage(), exit if $help;
 usage(), exit 1 if (not $project or not $data);
 #$project ||= "home:tinita:cpan-mirror:CPAN-";
 #$project ||= "devel:languages:perl:CPAN-";
+$cpanspec ||= "$Bin/../cpanspec";
 
 unless (@ARGV) {
     usage();
@@ -39,7 +41,7 @@ my $cpan2obs = CPAN2OBS->new({
     data => $data,
     cpanmirror => 'http://cpan.noris.de',
     apiurl => 'https://api.opensuse.org',
-    cpanspec => "$Bin/../cpanspec",
+    cpanspec => $cpanspec,
     project_prefix => $project,
 });
 

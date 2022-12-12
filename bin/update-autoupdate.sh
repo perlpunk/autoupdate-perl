@@ -15,4 +15,5 @@ cd $DIR
 ./bin/update-perl \
     --data ~/obs-mirror \
     --project devel:languages:perl:autoupdate \
-    --max 20
+    --max 20 \
+    --cpanspec "${CPANSPEC:-cpanspec}"
