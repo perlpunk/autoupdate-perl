@@ -19,6 +19,6 @@ do
         --data ~/obs-mirror \
         --project devel:languages:perl:CPAN- \
         --max 20 \
-        --cpanspec "${CPANSPEC:-cpanspec}"
+        --cpanspec "${CPANSPEC:-cpanspec}" \
         $LETTER
 done
