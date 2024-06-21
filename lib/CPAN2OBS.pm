@@ -29,6 +29,7 @@ has skip => ( is => 'ro' );
 has apiurl => ( is => 'ro' );
 has cpanmirror => ( is => 'ro' );
 has cpanspec => ( is => 'ro' );
+has cpanspec_flags => ( is => 'ro' );
 has project_prefix => ( is => 'ro', coerce => \&_coerce_project_prefix );
 has locked => ( is => 'rw' );
 
@@ -500,6 +501,7 @@ sub osc_update_dist {
     my $apiurl = $self->apiurl;
     my $mirror = $self->cpanmirror;
     my $cpanspec = $self->cpanspec;
+    my $cpanspec_flags = $self->cpanspec_flags;
     my $project_prefix = $self->project_prefix . $letter;
 
     my $osc = "$data/osc";
@@ -525,7 +527,7 @@ sub osc_update_dist {
     my $error = 1;
     {
         my $cmd = sprintf
-            "timeout 180 perl $cpanspec -v -f --pkgdetails %s --skip-changes %s > cpanspec.error 2>&1",
+            "timeout 180 perl $cpanspec $cpanspec_flags -v -f --pkgdetails %s --skip-changes %s > cpanspec.error 2>&1",
             "$data/02packages.details.txt.gz", $tar;
         debug("CMD $cmd");
         if (system $cmd or not -f $spec) {
@@ -609,6 +611,7 @@ sub osc_update_dist_perl {
     my $apiurl = $self->apiurl;
     my $mirror = $self->cpanmirror;
     my $cpanspec = $self->cpanspec;
+    my $cpanspec_flags = $self->cpanspec_flags;
     my $project_prefix = $self->project_prefix;
     my $letter = 'perl';
 
@@ -671,7 +674,7 @@ sub osc_update_dist_perl {
     copy("$Bin/../cpanspec.yml", "$checkout/cpanspec.yml") unless -f "cpanspec.yml";
     {
         my $cmd = sprintf
-            "timeout 900 perl $cpanspec -v -f --pkgdetails %s --old-file %s %s > cpanspec.error 2>&1",
+            "timeout 900 perl $cpanspec $cpanspec_flags -v -f --pkgdetails %s --old-file %s %s > cpanspec.error 2>&1",
             "$data/02packages.details.txt.gz", ".osc/$old_tar", $tar;
         debug("CMD $cmd");
         if (system $cmd or not -f $spec) {
