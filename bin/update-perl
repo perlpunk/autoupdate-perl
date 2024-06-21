@@ -17,6 +17,8 @@ GetOptions(
     'project=s' => \my $project,
     'package=s@' => \my @packages,
     'redo' => \my $redo,
+    'cpanspec=s' => \my $cpanspec,
+    'cpanspec-flags=s' => \my $cpanspec_flags,
     'help|h' => \my $help,
 );
 usage(), exit if $help;
@@ -28,7 +30,8 @@ my $cpan2obs = CPAN2OBS->new({
     data => $data,
     cpanmirror => 'http://cpan.metacpan.org',
     apiurl => 'https://api.opensuse.org',
-    cpanspec => "$Bin/../cpanspec",
+    cpanspec => $cpanspec || "$Bin/../../cpanspec/cpanspec",
+    cpanspec_flags => $cpanspec_flags || '',
     project_prefix => $project,
 });
 
