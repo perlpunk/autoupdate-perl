@@ -1,0 +1,28 @@
+name: Trigger Update devel:languages:perl
+on:
+  push:
+    # Push a branch named cron-test to trigger this workflow
+    branches: [cron-test]
+  workflow_dispatch:
+  schedule:
+  - cron: 15 5 * * *
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - env:
+        GH_TOKEN: ${{ github.token }}
+      name: Trigger
+      if: ${{ vars.ENABLED == 1 }}
+      run: |
+        gh workflow list
+        gh workflow run run.yaml --ref workflow \
+            -f "image=${{ vars.IMAGE }}" \
+            -f "repo=${{ vars.REPO }}" \
+            -f "branch=${{ vars.BRANCH }}" \
+            -f "obs_project=${{ vars.OBS_PROJECT }}" \
+            -f "max_modules=${{ vars.MAX_MODULES }}" \
+            -f "cpanspec_flags=${{ vars.CPANSPEC_FLAGS }}"
+
