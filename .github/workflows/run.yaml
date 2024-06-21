@@ -1,0 +1,36 @@
+name: Update devel:languages:perl (Dispatch)
+on:
+  workflow_dispatch:
+    inputs:
+      max_modules:
+        description: 'Maximum number of perl modules to process'
+        required: true
+        type: integer
+        default: 1
+      image:
+        description: Image to run on
+        type: string
+        default: registry.opensuse.org/home/tinita/branches/opensuse/templates/images/tumbleweed/containers/opensuse/example
+      repo:
+        description: Repo for cpanspec
+        type: string
+        default: https://github.com/perlpunk/cpanspec
+      branch:
+        description: cpanspec branch
+        type: string
+        default: update-perl-gh
+
+jobs:
+
+  update:
+    runs-on: ubuntu-latest
+    container:
+      #image: registry.opensuse.org/opensuse/leap:15.5
+      image: ${{ inputs.image }}
+
+    steps:
+    - run: |
+        zypper in -y git
+        git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v4
