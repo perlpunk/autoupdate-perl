@@ -18,7 +18,7 @@ on:
       branch:
         description: cpanspec branch
         type: string
-        default: update-perl-gh
+        default: normalize-versions
       obs_project:
         description: Target project in OBS
         type: string
@@ -33,7 +33,6 @@ jobs:
   update:
     runs-on: ubuntu-latest
     container:
-      #image: registry.opensuse.org/opensuse/leap:15.5
       image: ${{ inputs.image }}
 
     steps:
@@ -43,15 +42,8 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        gh workflow list
-
     - run: |
-        git clone ${{ inputs.repo }}
-        cd cpanspec
-        git checkout ${{ inputs.branch }}
+        git clone ${{ inputs.repo }} -b ${{ inputs.branch }}
 
     - name: configure osc
       env:
