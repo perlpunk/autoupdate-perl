@@ -23,6 +23,10 @@ on:
         description: Target project in OBS
         type: string
         default: home:tinita:testautoupdate
+      cpanspec_flags:
+        description: Additional flags for cpanspec
+        type: string
+        default: --dlp
 
 jobs:
 
@@ -49,13 +53,6 @@ jobs:
         cd cpanspec
         git checkout ${{ inputs.branch }}
 
-    - name: fetch cpan releases
-      run: |
-        pwd
-        bin/fetch-cpan.sh
-        ls -lrt ~/obs-mirror
-        ls -lrt ~/obs-mirror/cpan
-
     - name: configure osc
       env:
         OSC_USER: ${{ secrets.OSC_USER }}
@@ -64,6 +61,13 @@ jobs:
         cp etc/oscrc ~/.oscrc
         perl -pi -wE's/OSC_USER/$ENV{OSC_USER}/' ~/.oscrc
         perl -pi -wE's/OSC_PASSWORD/$ENV{OSC_PASSWORD}/' ~/.oscrc
+
+    - name: fetch cpan releases
+      run: |
+        pwd
+        bin/fetch-cpan.sh
+        ls -lrt ~/obs-mirror
+        ls -lrt ~/obs-mirror/cpan
 
     - name: status
       run: |
@@ -77,14 +81,16 @@ jobs:
             --data ~/obs-mirror \
             --project ${{ inputs.obs_project }} \
             --max ${{ inputs.max_modules }} \
-            --cpanspec-flags " --dlp"
+            --cpanspec-flags " ${{ inputs.cpanspec_flags }}"
 
-    - name: ls
+    - name: check
       run: |
         ls -lrt ~/obs-mirror
         ls -lrt ~/obs-mirror/cpan
+        grep $'\t''error' ~/obs-mirror/status/*.tsv && false
 
     - uses: actions/upload-artifact@v4
+      if: ${{ always() }}
       with:
         name: obs-mirror
         path: |
