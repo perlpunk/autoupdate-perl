@@ -85,13 +85,13 @@ jobs:
 
     - name: check
       run: |
-        ls -lrt ~/obs-mirror
-        ls -lrt ~/obs-mirror/status
         if ! grep $'\t''error' ~/obs-mirror/status/*; then
             echo "Updates successful"
         else
             echo "Some updates failed!"; false
         fi
+        ls -lrt ~/obs-mirror
+        ls -lrt ~/obs-mirror/status
 
     - uses: actions/upload-artifact@v4
       if: ${{ always() }}
