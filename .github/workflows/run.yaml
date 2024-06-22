@@ -71,8 +71,8 @@ jobs:
         ./bin/update-perl \
             --cpanspec "$PWD/cpanspec/cpanspec" \
             --data ~/obs-mirror \
-            --project ${{ inputs.obs_project }} \
-            --max ${{ inputs.max_modules }} \
+            --project "${{ inputs.obs_project }}" \
+            --max "${{ inputs.max_modules }}" \
             --cpanspec-flags " ${{ inputs.cpanspec_flags }}"
 
     - name: check
