@@ -86,8 +86,8 @@ jobs:
     - name: check
       run: |
         ls -lrt ~/obs-mirror
-        ls -lrt ~/obs-mirror/cpan
-        if ! grep $'\t''error' status/*; then
+        ls -lrt ~/obs-mirror/status
+        if ! grep $'\t''error' ~/obs-mirror/status/*; then
             echo "Updates successful"
         else
             echo "Some updates failed!"; false
