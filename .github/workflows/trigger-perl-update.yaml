@@ -1,0 +1,29 @@
+name: Trigger Update devel:languages:perl
+on:
+  push:
+    branches: [cron-test]
+  workflow_dispatch:
+#  schedule:
+#  - cron: 15 5 * * *
+
+jobs:
+
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh workflow list
+
+        gh workflow run run.yaml --ref workflow \
+            -F "image=${{ vars.IMAGE }}" \
+            -F "repo=${{ vars.REPO }}" \
+            -F "branch=${{ vars.BRANCH }}" \
+            -F "obs_project=${{ vars.OBS_PROJECT }}" \
+            -F "max_modules=${{ vars.MAX_MODULES }}" \
+            -F "cpanspec_flags=${{ vars.CPANSPEC_FLAGS }}"
+
