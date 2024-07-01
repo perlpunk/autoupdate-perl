@@ -10,7 +10,7 @@ on:
       image:
         description: Image to run on
         type: string
-        default: registry.opensuse.org/home/tinita/branches/opensuse/templates/images/tumbleweed/containers/opensuse/example
+        default: registry.opensuse.org/home/tinita/cpanspec/container/containers/opensuse/autoupdate-perl
       repo:
         description: Repo for cpanspec
         type: string
@@ -96,4 +96,4 @@ jobs:
           ~/obs-mirror/perl.xml
 
 # Trigger with gh cli:
-# gh workflow run run.yaml --ref workflow -f image=registry.opensuse.org/home/tinita/branches/opensuse/templates/images/tumbleweed/containers/opensuse/example -f repo=https://github.com/perlpunk/cpanspec -f branch=normalize-versions -f obs_project=home:tinita:testautoupdate -f max_modules=1
+# gh workflow run run.yaml --ref workflow -f image=registry.opensuse.org/home/tinita/cpanspec/container/containers/opensuse/autoupdate-perl -f repo=https://github.com/perlpunk/cpanspec -f branch=normalize-versions -f obs_project=home:tinita:testautoupdate -f max_modules=1
