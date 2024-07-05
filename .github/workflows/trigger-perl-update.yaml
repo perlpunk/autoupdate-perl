@@ -18,7 +18,7 @@ jobs:
       if: ${{ vars.ENABLED == 1 }}
       run: |
         gh workflow list
-        gh workflow run run.yaml --ref workflow \
+        gh workflow run run.yaml \
             -f "image=${{ vars.IMAGE }}" \
             -f "repo=${{ vars.REPO }}" \
             -f "branch=${{ vars.BRANCH }}" \
